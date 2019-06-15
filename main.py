@@ -25,7 +25,7 @@ def index():
         response.set_cookie("apellido", apellido)
 
         if not oculto:  # if not, create a new cookie
-            nuevo_oculto = random.randint(1, 5)
+            nuevo_oculto = random.randint(1, 20)
             response.set_cookie("oculto", str(nuevo_oculto))
 
 
@@ -41,7 +41,7 @@ def result():
     if secreto_usuario == oculto:
         mensaje = "Muy bien {0}, acertaste".format(str(nombre))
         response = make_response(render_template("result.html", mensaje=mensaje, nombre=nombre))
-        response.set_cookie("oculto", str(random.randint(1, 5)))
+        response.set_cookie("oculto", str(random.randint(1, 20)))
 
         return response
 
