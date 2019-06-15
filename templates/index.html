@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+<h1>bienvenid@ al juego de adivinar el número secreto</h1>
+
+{% block content %}
+
+    {% if nombre %}
+
+    {% include("form_numero.html") %}
+
+    {% else %}
+
+    {% include("form_nombre.html") %}
+
+    {% endif %}
+
+
+{% endblock content %}
