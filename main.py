@@ -1,4 +1,6 @@
 import random
+import datetime
+import json
 from flask import Flask, render_template, request, make_response
 
 app = Flask(__name__)
@@ -40,13 +42,36 @@ def result():
     secreto_usuario = int(request.form.get("secreto_usuario"))
     oculto = int(request.cookies.get("oculto"))
     nombre = request.cookies.get("nombre")
+    fecha = datetime.date.today()
 
     if secreto_usuario == oculto:
         intentos = request.cookies.get("intentos")
         new_intentos = int(intentos) + 1 # generamos nuevo numero de intentos desde la cookie + 1
         mensaje = "Muy bien {0}, acertaste".format(str(nombre))
         palmares = "Acertaste en {0} intentos".format(str(new_intentos))
-        response = make_response(render_template("result.html", mensaje=mensaje, nombre=nombre, new_intentos=new_intentos, intentos=intentos, palmares=palmares))
+        hoy = fecha.strftime('%d-%b-%Y')
+
+        # creamos lista de resultados desde el archivo de texto
+        with open("score_list.txt", "r") as score_file:
+            score_list = json.loads(score_file.read())
+
+
+        score_list.append({"Intentos": new_intentos, "Fecha": hoy, "Nombre": nombre})
+
+        with open("score_list.txt", "w") as score_file:
+            score_file.write(json.dumps(score_list))
+
+        # ordenamos la lista de resultados por intentos pero solo guardamos los tres mejores resultados
+        new_score_list = sorted(score_list, key=lambda k: k['Intentos'])
+        del new_score_list[3:]
+
+        for score_dict in new_score_list:
+            score_text = "{0} encontro en {1} intentos el {2}.".format(score_dict.get("Nombre"),
+                                                                           str(score_dict.get("Intentos")),
+                                                                           score_dict.get("Fecha"))
+            print(score_text)
+
+        response = make_response(render_template("result.html", mensaje=mensaje, nombre=nombre, new_intentos=new_intentos, intentos=intentos, palmares=palmares, score_text=score_text))
         response.set_cookie("oculto", str(random.randint(1, 20)))
         response.set_cookie("intentos", str(0))
 
