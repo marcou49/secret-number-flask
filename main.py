@@ -20,7 +20,7 @@ def index():
         nombre = request.form.get("nombre")
         apellido = request.form.get("apellido")
         oculto = request.cookies.get("oculto")
-        intentos = 0
+        intentos = '0'
 
         response = make_response(render_template("index.html", nombre=nombre, apellido=apellido, intentos=intentos))
         response.set_cookie("nombre", nombre)
@@ -72,4 +72,4 @@ def result():
         return response
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
