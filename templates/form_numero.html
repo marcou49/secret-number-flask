@@ -3,6 +3,12 @@
 <h2>Muy bien {{ nombre }} {{ apellido }} a ver si aciertas.</h2>
 <p>Tienes que encontrar un número entre 1 y 20</p>
 
+{% if intentos > '0' %}
+
+<p>Llevas ya {{ intentos }} intentos</p>
+
+{% endif %}
+
 <form method="post" action="/result">
     <input type="text" name="secreto_usuario" placeholder="Dános tu número">
     <button type="submit">Comprobar</button>
