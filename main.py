@@ -47,7 +47,7 @@ def result():
     if secreto_usuario == oculto:
         intentos = request.cookies.get("intentos")
         new_intentos = int(intentos) + 1 # generamos nuevo numero de intentos desde la cookie + 1
-        mensaje = "Muy bien {0}, acertaste".format(str(nombre))
+        mensaje = "Muy bien {0}, acertaste, efectivamente era {1}".format(str(nombre),str(oculto))
         palmares = "Acertaste en {0} intentos".format(str(new_intentos))
         hoy = fecha.strftime('%d-%b-%Y')
 

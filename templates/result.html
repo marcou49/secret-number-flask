@@ -6,7 +6,9 @@
 
 {% if palmares %}
 
-<p>{{ palmares }}</p>
+<div class="alert alert-success" role="alert">
+ {{ palmares }}
+</div>
 
 {% endif %}
 
@@ -26,6 +28,6 @@
 
 {% endif %}
 
-<p><a href="/"> Probar otra vez</a></p>
+<p><a href="/" class="btn btn-warning"> Probar otra vez</a></p>
 
 {% endblock content %}
