@@ -10,17 +10,22 @@
 
 {% endif %}
 
-{% if score_text %}
+{% if new_score_list %}
 
-Estos son los mejores resultados:
+<p>Estos son los 10 mejores resultados:</p>
 
-<p>{{ score_text }}</p>
+<ul>
+
+{% for score_dict in new_score_list %}
+
+<li>{{ score_dict }}</li>
+
+{% endfor %}
+
+</ul>
 
 {% endif %}
 
-
-
 <p><a href="/"> Probar otra vez</a></p>
-
 
 {% endblock content %}

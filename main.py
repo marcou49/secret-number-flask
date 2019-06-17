@@ -63,15 +63,15 @@ def result():
 
         # ordenamos la lista de resultados por intentos pero solo guardamos los tres mejores resultados
         new_score_list = sorted(score_list, key=lambda k: k['Intentos'])
-        del new_score_list[3:]
+        del new_score_list[10:]
 
         for score_dict in new_score_list:
             score_text = "{0} encontro en {1} intentos el {2}.".format(score_dict.get("Nombre"),
                                                                            str(score_dict.get("Intentos")),
                                                                            score_dict.get("Fecha"))
-            print(score_text)
 
-        response = make_response(render_template("result.html", mensaje=mensaje, nombre=nombre, new_intentos=new_intentos, intentos=intentos, palmares=palmares, score_text=score_text))
+
+        response = make_response(render_template("result.html", score_text=score_text, mensaje=mensaje, nombre=nombre, new_intentos=new_intentos, intentos=intentos, palmares=palmares, new_score_list=new_score_list))
         response.set_cookie("oculto", str(random.randint(1, 20)))
         response.set_cookie("intentos", str(0))
 
